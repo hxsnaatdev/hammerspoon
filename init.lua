@@ -10,6 +10,14 @@ hs.hotkey.bind({ "cmd", "shift" }, "F", function()
 	hs.application.open("Firefox")
 end)
 
+hs.hotkey.bind({ "cmd", "shift" }, "W", function()
+	hs.application.open("WhatsApp")
+end)
+
+hs.hotkey.bind({ "cmd", "shift" }, "O", function()
+	hs.application.open("Obsidian")
+end)
+
 local function toggleWifi()
 	local current = hs.wifi.interfaceDetails()
 	local newState = not (current and current.power)
