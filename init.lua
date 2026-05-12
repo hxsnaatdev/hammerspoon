@@ -1,6 +1,8 @@
 --hs.hotkey.bind({ "cmd", "alt", "ctrl" }, "W", function()
 --hs.alert.show("Hello world! ")
 --end)
+local hs = hs
+pcall(require, "hs.ipc")
 
 hs.hotkey.bind({ "cmd", "shift" }, "return", function()
 	hs.application.open("WezTerm")
@@ -46,3 +48,8 @@ end)
 hs.hotkey.bind({ "cmd", "shift" }, ";", function()
 	toggleWifi()
 end)
+
+local obsidianClaudePath = "/Users/ariz/SecondBrain/hammerspoon/obsidian_claude.lua"
+if hs.fs.attributes(obsidianClaudePath) then
+	dofile(obsidianClaudePath)
+end
