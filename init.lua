@@ -5,11 +5,25 @@ local hs = hs
 pcall(require, "hs.ipc")
 
 hs.hotkey.bind({ "cmd", "shift" }, "return", function()
-	hs.application.open("WezTerm")
+	hs.application.open("wezterm")
 end)
 
+local function focusOrLaunchApp(bundleID, appName)
+	local app = hs.application.get(bundleID)
+	if app then
+		app:activate(true)
+		local window = app:mainWindow()
+		if window then
+			window:unminimize()
+			window:focus()
+		end
+	else
+		hs.application.launchOrFocus(appName)
+	end
+end
+
 hs.hotkey.bind({ "cmd", "shift" }, "F", function()
-	hs.application.open("Firefox")
+	focusOrLaunchApp("org.nixos.firefox", "Firefox")
 end)
 
 hs.hotkey.bind({ "cmd", "shift" }, "W", function()
