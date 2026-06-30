@@ -4,6 +4,8 @@
 local hs = hs
 pcall(require, "hs.ipc")
 
+hs.application.enableSpotlightForNameSearches(true)
+
 hs.hotkey.bind({ "cmd", "shift" }, "return", function()
 	hs.application.open("wezterm")
 end)
