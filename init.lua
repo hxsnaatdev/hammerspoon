@@ -69,3 +69,31 @@ local obsidianClaudePath = "/Users/ariz/SecondBrain/hammerspoon/obsidian_claude.
 if hs.fs.attributes(obsidianClaudePath) then
 	dofile(obsidianClaudePath)
 end
+
+-- using switchAudio to switch between souces of i/o
+--
+--
+--
+local function switchAudio(deviceType)
+	local script = os.getenv("HOME") .. "/.hammerspoon/scripts/switch_audio.sh"
+	local output, status = hs.execute(script .. " " .. deviceType)
+	if status then
+		local deviceName = output:gsub("%s+$", "") -- trim trailing newline
+		hs.notify
+			.new({
+				title = (deviceType == "output") and "Audio Output" or "Audio Input",
+				informativeText = deviceName,
+			})
+			:send()
+	else
+		hs.notify.new({ title = "Audio Switch Failed", informativeText = output }):send()
+	end
+end
+
+hs.hotkey.bind({ "cmd", "shift" }, "A", function()
+	switchAudio("output")
+end)
+
+hs.hotkey.bind({ "cmd", "shift" }, "I", function()
+	switchAudio("input")
+end)
